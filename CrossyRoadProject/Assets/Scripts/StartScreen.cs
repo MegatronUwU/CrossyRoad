@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class StartScreen : MonoBehaviour
 {
-    public GameObject startCanvas;
+    [SerializeField]
+    private GameObject StartCanvas;
+
     public GameObject gameCanvas;
     public GameObject player;
 
@@ -21,6 +24,7 @@ public class StartScreen : MonoBehaviour
         _actions.Player.Enable();
         _actions.Player.Attack.Enable();
         _actions.Player.Attack.performed += OnClickToStart;
+        print("OnEnable");
     }
 
     private void OnDisable()
@@ -35,8 +39,10 @@ public class StartScreen : MonoBehaviour
 
         hasStarted = true;
 
-        startCanvas.SetActive(false);
-        gameCanvas.SetActive(true);
+        print("start");
+
+        StartCanvas.SetActive(false);
+        //gameCanvas.SetActive(true);
         player.SetActive(true);
     }
 }

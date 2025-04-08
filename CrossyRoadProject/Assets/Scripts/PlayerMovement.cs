@@ -1,9 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
+using System;
+using Random = UnityEngine.Random;
+using System.Threading.Tasks;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveDistance = 1f;
+    public float MoveDistance = 1f;
     public float moveDuration = 0.1f;
 
     private bool isMoving = false;
@@ -12,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _actions = new InputSystem_Actions();
+
+        Random.Range(0, 5);
     }
 
     private void OnEnable()
@@ -26,7 +32,9 @@ public class PlayerMovement : MonoBehaviour
         _actions.Disable();
     }
 
-    private void OnMove(InputAction.CallbackContext ctx)
+    Coroutine coroutine;
+
+	private async void OnMove(InputAction.CallbackContext ctx)
     {
         if (isMoving) return;
 
@@ -41,10 +49,12 @@ public class PlayerMovement : MonoBehaviour
 
         // On lance la coroutine pour animer le déplacement
         if (direction != Vector3.zero)
-            StartCoroutine(MoveToPosition(transform.position + direction * moveDistance));
+            coroutine = StartCoroutine(MoveToPosition(transform.position + direction * MoveDistance));
+
+        StopCoroutine(coroutine);
     }
 
-    private System.Collections.IEnumerator MoveToPosition(Vector3 target)
+    private IEnumerator MoveToPosition(Vector3 target)
     {
         isMoving = true;
         Vector3 start = transform.position;

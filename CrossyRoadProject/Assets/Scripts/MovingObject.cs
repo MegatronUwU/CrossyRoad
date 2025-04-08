@@ -6,8 +6,12 @@ public class MovingObject : MonoBehaviour
     public float maxX = 10f;
     public float minX = -10f;
 
+    Rigidbody _rigidBody = null;
+
     void Update()
     {
+        //_rigidBody.AddForce(Vector3.forward, ForceMode.)
+
         transform.Translate(Vector3.right * speed * Time.deltaTime);
 
         // Si on dépasse la limite droite, on revient à gauche

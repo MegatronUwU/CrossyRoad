@@ -17,7 +17,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public void ShowGameOverUI()
+	private void OnDestroy()
+	{
+		Instance = null;
+	}
+
+	public void ShowGameOverUI()
     {
         gameOverCanvas.SetActive(true);
         Time.timeScale = 0f;
