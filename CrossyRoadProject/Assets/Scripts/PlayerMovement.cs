@@ -33,11 +33,13 @@ public class PlayerMovement : MonoBehaviour
         Vector2 input = ctx.ReadValue<Vector2>();
         Vector3 direction = Vector3.zero;
 
+        // On check la direction en fonction de l'input
         if (input.y > 0) direction = Vector3.forward;
         else if (input.y < 0) direction = Vector3.back;
         else if (input.x < 0) direction = Vector3.left;
         else if (input.x > 0) direction = Vector3.right;
 
+        // On lance la coroutine pour animer le déplacement
         if (direction != Vector3.zero)
             StartCoroutine(MoveToPosition(transform.position + direction * moveDistance));
     }
@@ -48,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 start = transform.position;
         float elapsed = 0f;
 
+        // Pour animer le déplacement
         while (elapsed < moveDuration)
         {
             transform.position = Vector3.Lerp(start, target, elapsed / moveDuration);

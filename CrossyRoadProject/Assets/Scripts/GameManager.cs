@@ -1,22 +1,31 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private bool isGameOver = false;
+    public static GameManager Instance;
+    public GameObject gameOverCanvas;
 
-    public void GameOver()
+    private void Awake()
     {
-        if (isGameOver) return;
-        isGameOver = true;
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
 
-        Debug.Log("Game Over");
-
-        Invoke("RestartGame", 2f);
+        gameOverCanvas.SetActive(false);
+        Time.timeScale = 1f;
     }
 
-    void RestartGame()
+    public void ShowGameOverUI()
     {
+        gameOverCanvas.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
