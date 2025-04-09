@@ -6,7 +6,7 @@ public class LogController : MonoBehaviour
     public float MinX = -10f;
     public float MaxX = 10f;
 
-    [SerializeField] public PlayerCollisionHandler PlayerHandler; 
+    [SerializeField] public PlayerCollisionHandler _playerHandler; 
 
     private void Update()
     {
@@ -23,26 +23,27 @@ public class LogController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Le player est transporté par le rondin
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player")) return;
+
+        // On vérifie que le joueur est sur le log
+        float playerY = other.transform.position.y;
+        float logY = transform.position.y;
+
+        // Tolérance de hauteur
+        if (playerY >= logY && playerY <= logY + 0.6f)
         {
             Debug.Log("Player monté sur le log");
-            other.transform.SetParent(transform);
-
-            if (PlayerHandler != null)
-                PlayerHandler.SetIsOnLog(true);
+            _playerHandler?.SetIsOnLog(true, transform, this);
         }
     }
+
 
     private void OnTriggerExit(Collider other)
     {
         // Le player quitte le rondin 
         if (other.CompareTag("Player"))
         {
-            other.transform.SetParent(null);
-
-            if (PlayerHandler != null)
-                PlayerHandler.SetIsOnLog(false);
+                _playerHandler?.SetIsOnLog(false, null, null);
         }
     }
 }

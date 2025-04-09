@@ -9,8 +9,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving = false;
     private InputSystem_Actions _actions;
 
-    private Transform _currentLog = null;
-    private bool _isOnLog = false;
 
     private void Awake()
     {
@@ -64,4 +62,11 @@ public class PlayerMovement : MonoBehaviour
         transform.position = target;
         isMoving = false;
     }
+
+    public void Move(Vector3 direction)
+    {
+        if (isMoving) return;
+        StartCoroutine(MoveToPosition(transform.position + direction * moveDistance));
+    }
+
 }
