@@ -2,9 +2,11 @@
 
 public class LogController : MonoBehaviour
 {
-    public float Speed = 2f;   
-    public float MinX = -10f;  
-    public float MaxX = 10f;  
+    public float Speed = 2f;
+    public float MinX = -10f;
+    public float MaxX = 10f;
+
+    [SerializeField] public PlayerCollisionHandler PlayerHandler; 
 
     private void Update()
     {
@@ -19,21 +21,28 @@ public class LogController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         // Le player est transporté par le rondin
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            collision.transform.SetParent(transform);
+            Debug.Log("Player monté sur le log");
+            other.transform.SetParent(transform);
+
+            if (PlayerHandler != null)
+                PlayerHandler.SetIsOnLog(true);
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
         // Le player quitte le rondin 
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            collision.transform.SetParent(null);
+            other.transform.SetParent(null);
+
+            if (PlayerHandler != null)
+                PlayerHandler.SetIsOnLog(false);
         }
     }
 }

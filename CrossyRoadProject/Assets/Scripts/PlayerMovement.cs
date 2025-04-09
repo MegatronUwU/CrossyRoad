@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving = false;
     private InputSystem_Actions _actions;
 
+    private Transform _currentLog = null;
+    private bool _isOnLog = false;
+
     private void Awake()
     {
         _actions = new InputSystem_Actions();
