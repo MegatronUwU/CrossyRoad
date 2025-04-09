@@ -3,45 +3,45 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCollisionHandler : MonoBehaviour
 {
-    private bool _isOnLog = false;
-    private Transform _currentLog = null;
+	[SerializeField] private LogData _logData = null;
 
-    [SerializeField] private LogController _currentLogController;
+	private int _connectedLogCount = 0;
+	public bool IsOnLog => _connectedLogCount > 0;
 
-    private void Update()
-    {
-        // Si on est sur un log, on suit son mouvement
-        if (_isOnLog && _currentLog != null && _currentLogController != null)
-        {
-            Vector3 move = _currentLog.right * Time.deltaTime * _currentLogController.Speed;
-            transform.position += move;
-        }
-    }
+	private int _connectedWaterCount = 0;
+	public bool IsOnWater => _connectedWaterCount > 0;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //  On check l'eau uniquement si on n'est pas sur un log
-        if (other.CompareTag("Water") && !_isOnLog)
-        {
-            Debug.Log("Game Over");
-            GameManager.Instance.ShowGameOverUI();
-        }
-    }
+	private void Update()
+	{
+		if (!IsOnLog)
+			return;
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Obstacle"))
-        {
-            Debug.Log("Game Over");
-            Time.timeScale = 0f;
-            GameManager.Instance.ShowGameOverUI();
-        }
-    }
+		transform.Translate(Vector3.right * _logData.MovementSpeed * Time.deltaTime);
+	}
 
-    public void SetIsOnLog(bool value, Transform logTransform = null, LogController logController = null)
-    {
-        _isOnLog = value;
-        _currentLog = logTransform;
-        _currentLogController = logController;
-    }
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.CompareTag("Water"))
+			_connectedWaterCount++;
+
+		if (other.CompareTag("Log"))
+			_connectedLogCount++;
+	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.CompareTag("Water"))
+			_connectedWaterCount--;
+
+		if (other.CompareTag("Log"))
+			_connectedLogCount--;
+	}
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		if (collision.gameObject.CompareTag("Obstacle"))
+		{
+			GameManager.Instance.ShowGameOverUI();
+		}
+	}
 }

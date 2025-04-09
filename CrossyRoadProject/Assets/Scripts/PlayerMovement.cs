@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving = false;
     private InputSystem_Actions _actions;
 
+    [SerializeField]
+    private PlayerCollisionHandler _collisionHandler = null;
+
 
     private void Awake()
     {
@@ -61,6 +64,12 @@ public class PlayerMovement : MonoBehaviour
 
         transform.position = target;
         isMoving = false;
+
+        if(!_collisionHandler.IsOnLog && _collisionHandler.IsOnWater)
+        {
+			Time.timeScale = 0f;
+			GameManager.Instance.ShowGameOverUI();
+		}
     }
 
     public void Move(Vector3 direction)
