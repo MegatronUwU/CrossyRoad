@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2187266672654187954}
   m_Layer: 0
   m_Name: LogLane
-  m_TagString: Untagged
+  m_TagString: LogLane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,10 +209,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982a25b80b263f145825d36fab3c0c3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2
+  _logData: {fileID: 0}
   MinX: -10
   MaxX: 10
-  PlayerHandler: {fileID: 0}
+  _playerHandler: {fileID: 0}
 --- !u!1 &1548193749897201293
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,10 +578,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982a25b80b263f145825d36fab3c0c3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2
+  _logData: {fileID: 0}
   MinX: -10
   MaxX: 10
-  PlayerHandler: {fileID: 0}
+  _playerHandler: {fileID: 0}
 --- !u!1 &6650330701720363170
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,10 +839,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982a25b80b263f145825d36fab3c0c3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2
+  _logData: {fileID: 0}
   MinX: -10
   MaxX: 10
-  PlayerHandler: {fileID: 0}
+  _playerHandler: {fileID: 0}
 --- !u!1 &7676569930195069467
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,7 +992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982a25b80b263f145825d36fab3c0c3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2
+  _logData: {fileID: 0}
   MinX: -10
   MaxX: 10
-  PlayerHandler: {fileID: 0}
+  _playerHandler: {fileID: 0}

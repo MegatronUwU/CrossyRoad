@@ -11,6 +11,7 @@ TagManager:
   - Floor
   - Trigger
   - Destroy
+  - LogLane
   layers:
   - Default
   - TransparentFX
