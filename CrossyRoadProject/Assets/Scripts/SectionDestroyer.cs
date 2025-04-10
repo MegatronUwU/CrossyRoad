@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class SectionDestroyer : MonoBehaviour
+public class TriggerDestroyer : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Floor"))
-        {
-            Destroy(other.gameObject);
-        }
+        if (!other.CompareTag("Floor")) return;
+
+        Destroy(other.gameObject);
+        Debug.Log("Destroy");
     }
 }

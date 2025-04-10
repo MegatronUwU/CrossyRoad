@@ -12,6 +12,8 @@ TagManager:
   - Trigger
   - Destroy
   - LogLane
+  - Spawner
+  - ScoreManager
   layers:
   - Default
   - TransparentFX

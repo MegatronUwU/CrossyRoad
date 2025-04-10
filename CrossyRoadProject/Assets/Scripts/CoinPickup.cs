@@ -7,8 +7,8 @@ public class CoinPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Coin récupérée");
-            Destroy(gameObject); 
-            // To do à rajouter au score
+            ScoreManager.Instance.AddScore(1); 
+            Destroy(gameObject);
         }
     }
 }
