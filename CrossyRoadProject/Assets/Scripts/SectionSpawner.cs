@@ -31,6 +31,8 @@ public class SectionSpawner : MonoBehaviour
         Vector3 spawnPos = new Vector3(0f, 0f, _spawnPoint.position.z + _floorLength);
         GameObject newFloor = Instantiate(_floorPrefab, spawnPos, _floorPrefab.transform.rotation);
 
+        newFloor.GetComponent<Floor>().GenerateObstacles();
+
         _triggerToMove.position = newFloor.transform.position + _triggerLocalOffset;
         _destroyTrigger.position = newFloor.transform.position + _destroyTriggerOffset;
 
@@ -57,7 +59,7 @@ public class SectionSpawner : MonoBehaviour
             if (tooClose) continue;
 
             GameObject obstaclePrefab = _obstaclePrefabs[Random.Range(0, _obstaclePrefabs.Length)];
-            Instantiate(obstaclePrefab, spawnPosObstacle, Quaternion.identity);
+            //Instantiate(obstaclePrefab, spawnPosObstacle, Quaternion.identity);
             usedPositions.Add(spawnPosObstacle);
             i++;
         }
@@ -69,7 +71,7 @@ public class SectionSpawner : MonoBehaviour
     {
         // On récupère la taille avec localScale
         Vector3 center = floor.position;
-        float playerX = _playerTransform.position.x;
+        float playerX = _playerTransform.position.z;
 
         // On fait spawn à côté du player
         float x = Random.Range(playerX - xRangeFromPlayer, playerX + xRangeFromPlayer);

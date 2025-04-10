@@ -6,7 +6,12 @@ public class MovingObject : MonoBehaviour
     public float maxX = 10f;
     public float minX = -10f;
 
-    void Update()
+	private void Start()
+	{
+		transform.position = new Vector3(Random.Range(minX, maxX), transform.position.y, transform.position.z);
+	}
+
+	void Update()
     {
         transform.Translate(Vector3.right * speed * Time.deltaTime);
 
