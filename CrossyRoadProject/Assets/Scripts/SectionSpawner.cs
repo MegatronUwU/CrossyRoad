@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class SectionSpawner : MonoBehaviour
 {
@@ -6,8 +7,8 @@ public class SectionSpawner : MonoBehaviour
     [SerializeField] private GameObject[] _obstaclePrefabs;
     [SerializeField] private Transform _spawnPoint;
 
-    [SerializeField] private int _minObstacles = 1;
-    [SerializeField] private int _maxObstacles = 4;
+    [SerializeField] private int _minObstacles = 6;
+    [SerializeField] private int _maxObstacles = 8;
 
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private float xRangeFromPlayer = 1.5f;
@@ -20,7 +21,7 @@ public class SectionSpawner : MonoBehaviour
     [SerializeField] private Transform _destroyTrigger;
     [SerializeField] private Vector3 _destroyTriggerOffset;
 
-
+    [SerializeField] private float _minDistance = 3f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -35,28 +36,48 @@ public class SectionSpawner : MonoBehaviour
 
         int obstacleCount = Random.Range(_minObstacles, _maxObstacles + 1);
 
-        for (int i = 0; i < obstacleCount; i++)
+        List<Vector3> usedPositions = new List<Vector3>();
+        int attempts = 0;
+
+        for (int i = 0; i < obstacleCount && attempts < 100; attempts++)
         {
             Vector3 spawnPosObstacle = GetRandomPositionOnFloor(newFloor.transform);
-            GameObject obstaclePrefab = _obstaclePrefabs[Random.Range(0, _obstaclePrefabs.Length)];
 
+            // On check s'ils sont pas trop proche
+            bool tooClose = false;
+            foreach (var pos in usedPositions)
+            {
+                if (Vector3.Distance(spawnPosObstacle, pos) < _minDistance)
+                {
+                    tooClose = true;
+                    break;
+                }
+            }
+
+            if (tooClose) continue;
+
+            GameObject obstaclePrefab = _obstaclePrefabs[Random.Range(0, _obstaclePrefabs.Length)];
             Instantiate(obstaclePrefab, spawnPosObstacle, Quaternion.identity);
+            usedPositions.Add(spawnPosObstacle);
+            i++;
         }
 
         Debug.Log("Floor et obstacles générés");
-
     }
 
     private Vector3 GetRandomPositionOnFloor(Transform floor)
     {
         // On récupère la taille avec localScale
         Vector3 center = floor.position;
-        Vector3 size = floor.localScale * 10f; 
+        float playerX = _playerTransform.position.x;
 
-        float x = Random.Range(center.x - size.x / 2f + 1f, center.x + size.x / 2f - 1f);
-        float z = Random.Range(center.z - size.z / 2f + 1f, center.z + size.z / 2f - 1f);
+        // On fait spawn à côté du player
+        float x = Random.Range(playerX - xRangeFromPlayer, playerX + xRangeFromPlayer);
+
+        float zMin = center.z - (_floorLength / 2f) + 1f;
+        float zMax = center.z + (_floorLength / 2f) - 1f;
+        float z = Random.Range(zMin, zMax);
 
         return new Vector3(x, center.y + 0.5f, z);
     }
 }
-
