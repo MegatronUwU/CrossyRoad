@@ -5,7 +5,7 @@ public class FloorManager : MonoBehaviour
 {
     public static FloorManager Instance;
 
-    [SerializeField] private int maxFloors = 3;
+    [SerializeField] private int maxFloors = 2;
 
     private Queue<GameObject> floorQueue = new Queue<GameObject>();
 

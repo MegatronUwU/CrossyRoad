@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 5240842398056944037}
   m_Layer: 8
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -363,6 +363,7 @@ MonoBehaviour:
   _obstaclePrefabs:
   - {fileID: 8364584596219031311, guid: f4f3e6c7b648a9641b0fd618f118d356, type: 3}
   - {fileID: 5490447352831972824, guid: bd9b069dfc3c6d84baafbc11ba5e07ce, type: 3}
+  _logPrefab: {fileID: 0}
 --- !u!33 &563555241434307493
 MeshFilter:
   m_ObjectHideFlags: 0
