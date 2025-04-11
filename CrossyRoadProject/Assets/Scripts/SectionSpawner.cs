@@ -30,6 +30,7 @@ public class SectionSpawner : MonoBehaviour
         // On décale le floor vers l'avant
         Vector3 spawnPos = new Vector3(0f, 0f, _spawnPoint.position.z + _floorLength);
         GameObject newFloor = Instantiate(_floorPrefab, spawnPos, _floorPrefab.transform.rotation);
+        FloorManager.Instance.RegisterFloor(newFloor);
 
         newFloor.GetComponent<Floor>().GenerateObstacles();
 

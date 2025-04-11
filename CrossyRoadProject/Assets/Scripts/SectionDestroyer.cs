@@ -5,9 +5,8 @@ public class TriggerDestroyer : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Trigger Activé" + other.name + "Tag" + other.tag);
-        if (!other.CompareTag("Floor")) return;
+        if (!other.CompareTag("Player")) return;
 
-        Destroy(other.gameObject);
-        Debug.Log("Destroy");
+        FloorManager.Instance.ClearAllFloors();
     }
 }
