@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3050887459229606061}
-  - component: {fileID: 2187266672654187954}
   m_Layer: 0
   m_Name: LogLane
   m_TagString: LogLane
@@ -26,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 444088484523585850}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.086864, y: 6.922565, z: 15.398678}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34,27 +33,6 @@ Transform:
   - {fileID: 881496105178257403}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2187266672654187954
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 444088484523585850}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1310990390054332109
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,7 +63,7 @@ Transform:
   m_GameObject: {fileID: 1310990390054332109}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.49, y: -6.76, z: 5.06}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 4.28, y: 0.013625888, z: 1.5344447}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -236,7 +214,7 @@ Transform:
   m_GameObject: {fileID: 1774633058069692806}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.9898643, y: -6.792565, z: 5.06}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5.8075204, y: 0.013625888, z: 1.5344447}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -6,32 +6,36 @@ public class FloorManager : MonoBehaviour
     public static FloorManager Instance;
 
     [SerializeField] private int maxFloors = 2;
+    [SerializeField] private GameObject _baseFloor = null;
 
-    private Queue<GameObject> floorQueue = new Queue<GameObject>();
+    private Queue<GameObject> _floorQueue = new Queue<GameObject>();
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+
+        _floorQueue.Enqueue(_baseFloor);
+        _baseFloor.GetComponent<Floor>().GenerateObstacles();
     }
 
     public void RegisterFloor(GameObject floor)
     {
-        floorQueue.Enqueue(floor);
+        _floorQueue.Enqueue(floor);
 
         // Si on dépasse le max, on supprime l’ancien
-        if (floorQueue.Count > maxFloors)
+        if (_floorQueue.Count > maxFloors)
         {
-            GameObject oldest = floorQueue.Dequeue();
+            GameObject oldest = _floorQueue.Dequeue();
             Destroy(oldest);
         }
     }
 
     public void ClearAllFloors()
     {
-        while (floorQueue.Count > 0)
+        while (_floorQueue.Count > 0)
         {
-            Destroy(floorQueue.Dequeue());
+            Destroy(_floorQueue.Dequeue());
         }
     }
 }

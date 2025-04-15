@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LogController : MonoBehaviour
 {
@@ -8,6 +9,11 @@ public class LogController : MonoBehaviour
 	public float MaxX = 10f;
 
 	[SerializeField] public PlayerCollisionHandler _playerHandler;
+
+	private void Start()
+	{
+		transform.position = transform.position.SetX(Random.Range(MinX, MinX));
+	}
 
 	private void Update()
 	{

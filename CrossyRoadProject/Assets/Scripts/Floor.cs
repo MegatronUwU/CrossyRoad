@@ -17,15 +17,16 @@ public class Floor : MonoBehaviour
 
 		for (int i = 0; i < _obstacleSpawnPoints.Length; i++)
 		{
-			Vector3 spawnPos = _obstacleSpawnPoints[i].position + Vector3.up * 0.5f; 
+			Vector3 spawnPos = _obstacleSpawnPoints[i].position + Vector3.up * .25f; 
 			_generatedObstacles[i] = Instantiate(_obstaclePrefabs[Random.Range(0, _obstaclePrefabs.Length)], spawnPos, Quaternion.identity, transform);
 
-			if (_generatedObstacles[i].TryGetComponent<LogController>(out _))
+			if(_generatedObstacles[i].GetComponentInChildren<LogController>() != null)
 			{
-				_generatedObstacles[i + 1] = Instantiate(_logPrefab, _obstacleSpawnPoints[i].position, Quaternion.identity, transform);
-				_generatedObstacles[i + 2] = Instantiate(_logPrefab, _obstacleSpawnPoints[i].position, Quaternion.identity, transform);
-				_generatedObstacles[i + 3] = Instantiate(_logPrefab, _obstacleSpawnPoints[i].position, Quaternion.identity, transform);
-				i += 3;
+				_generatedObstacles[i] = Instantiate(_logPrefab, spawnPos.AddZ(1.5f), Quaternion.identity, transform);
+				_generatedObstacles[i] = Instantiate(_logPrefab, spawnPos.AddZ(3f), Quaternion.identity, transform);
+				//_generatedObstacles[i] = Instantiate(_logPrefab, spawnPos.AddZ(4.5f), Quaternion.identity, transform);
+				i++;
+				i++;
 			}
 		}
 
