@@ -285,8 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36ded1d5eb81cc449b3dd4b5d93c5c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _width: 10
-  _height: 10
+  _width: 11
   _tilePrefab: {fileID: 3904703816228473752}
   _cellSize: 1
 --- !u!4 &963647688
@@ -336,8 +335,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5afee41e156eae45906f141f47e16fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveDistance: 1
   _moveCooldown: 0.15
+  _gridManager: {fileID: 963647687}
 --- !u!65 &1349533582
 BoxCollider:
   m_ObjectHideFlags: 0

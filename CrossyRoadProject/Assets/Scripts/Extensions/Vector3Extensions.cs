@@ -13,5 +13,15 @@ namespace CrossyRoad.Old
 		{
 			return new Vector3(value, vector.y, vector.z);
 		}
+
+		public static Vector2 ToVector2FromXZ(this Vector3 vector)
+		{
+			return new(vector.x, vector.z);
+		}
+
+		public static Vector3 ToVector3FromXY(this Vector2 vector, float y)
+		{
+			return new(vector.x, y, vector.y);
+		}
 	}
 }
