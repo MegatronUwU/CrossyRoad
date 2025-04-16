@@ -7,14 +7,15 @@ namespace CrossyRoad.New
 {
 	public class GridPlayer : MonoBehaviour
 	{
-		//[SerializeField] private float _moveDistance = 1f;
 		[SerializeField] private float _moveCooldown = 0.15f;
 
 		[SerializeField] private GridManager _gridManager = null;
+		[SerializeField] private GridLevelManager _levelManager; 
 
 		private bool _isMoving = false;
-
 		private InputSystem_Actions _actions;
+
+		private int _currentGridRow = 0; 
 
 		private void Awake()
 		{
@@ -23,7 +24,9 @@ namespace CrossyRoad.New
 
 		private void Start()
 		{
-			transform.position = _gridManager.GridToWorldPosition(Vector2Int.zero).ToVector3FromXY(1f);
+			Vector2Int startGrid = Vector2Int.zero;
+			transform.position = _gridManager.GridToWorldPosition(startGrid).ToVector3FromXY(1f);
+			_levelManager.InitGrid();
 		}
 
 		private void OnEnable()
@@ -40,12 +43,12 @@ namespace CrossyRoad.New
 
 		private void OnMove(InputAction.CallbackContext ctx)
 		{
-			// On empêche un déplacement s’il y en a déjà un + petit cooldown 
+			// On empêche un déplacement s’il y en a déjà un
 			if (_isMoving)
 				return;
 
 			Vector2 input = ctx.ReadValue<Vector2>();
-			Vector2 direction = Vector3.zero;
+			Vector2 direction = Vector2.zero;
 
 			// On check la direction en fonction de l'input
 			if (input.y > 0) direction = Vector2.up;
@@ -56,8 +59,6 @@ namespace CrossyRoad.New
 			if (direction == Vector2.zero)
 				return;
 
-			//StartCoroutine(MoveToPosition(transform.position + direction * _moveDistance));
-
 			Vector2Int gridTargetPosition = _gridManager.EvaluateWorldToGridPosition(transform.position.ToVector2FromXZ() + direction);
 
 			if (direction == Vector2.left && _gridManager.IsOnLeftBorder(gridTargetPosition))
@@ -66,8 +67,8 @@ namespace CrossyRoad.New
 			if (direction == Vector2.right && _gridManager.IsOnRightBorder(gridTargetPosition))
 				return;
 
-			Vector3 worlTargetPosition = _gridManager.GridToWorldPosition(gridTargetPosition).ToVector3FromXY(1f);
-			StartCoroutine(MoveToPosition(worlTargetPosition));
+			Vector3 worldTargetPosition = _gridManager.GridToWorldPosition(gridTargetPosition).ToVector3FromXY(1f);
+			StartCoroutine(MoveToPosition(worldTargetPosition));
 		}
 
 		private IEnumerator MoveToPosition(Vector3 targetPosition)
@@ -86,6 +87,9 @@ namespace CrossyRoad.New
 
 			transform.position = targetPosition;
 			_isMoving = false;
+
+			Vector2Int currentGrid = _gridManager.EvaluateWorldToGridPosition(transform.position.ToVector2FromXZ());
+			_levelManager.TryAdvanceRow(currentGrid.y);
 		}
 	}
 }
