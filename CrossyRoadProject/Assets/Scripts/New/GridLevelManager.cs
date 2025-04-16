@@ -10,6 +10,8 @@ namespace CrossyRoad.New
         [SerializeField] private GameObject _rowPrefab;
         [SerializeField] private int _initialRows = 6;
         [SerializeField] private Transform _rowParent;
+        [SerializeField] private GameObject _obstaclePrefab;
+
 
         private Queue<GameObject> _activeRows = new();
         private int _currentRowY = 0;
@@ -37,6 +39,8 @@ namespace CrossyRoad.New
             Vector3 pos = _gridManager.GridToWorldPosition(new Vector2Int(0, y)).ToVector3FromXY(0f);
             GameObject row = Instantiate(_rowPrefab, pos, Quaternion.identity, _rowParent);
             _activeRows.Enqueue(row);
+
+            TrySpawnObstacle(y);
         }
 
         private void RemoveOldestRow()
@@ -47,5 +51,18 @@ namespace CrossyRoad.New
                 Destroy(oldest);
             }
         }
+
+        private void TrySpawnObstacle(int rowY)
+        {
+            if (Random.value > 0.5f) return;
+
+            int randomX = Random.Range(-(_gridManager.Width / 2), (_gridManager.Width / 2) + 1);
+            Vector2Int gridPos = new Vector2Int(randomX, rowY);
+            Vector3 worldPos = _gridManager.GridToWorldPosition(gridPos).ToVector3FromXY(0.5f); 
+
+            Instantiate(_obstaclePrefab, worldPos, Quaternion.identity);
+        }
+
+
     }
 }

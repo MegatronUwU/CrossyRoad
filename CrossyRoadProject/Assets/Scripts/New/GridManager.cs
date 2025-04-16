@@ -9,6 +9,9 @@ namespace CrossyRoad.New
 
         [SerializeField] private float _cellSize = 1f;
 
+        public int Width => _width;
+
+
         //private void Start()
         //{
         //    GenerateGrid();
@@ -55,5 +58,15 @@ namespace CrossyRoad.New
 		{
 			return IsOnRightBorder(EvaluateWorldToGridPosition(worldPosition));
 		}
-	}
+
+        public bool IsOnFirstLine(Vector2Int gridPosition)
+        {
+            return gridPosition.y <= 0;
+        }
+
+        public bool IsOnFirstLine(Vector2 worldPosition)
+        {
+            return IsOnFirstLine(EvaluateWorldToGridPosition(worldPosition));
+        }
+    }
 }
