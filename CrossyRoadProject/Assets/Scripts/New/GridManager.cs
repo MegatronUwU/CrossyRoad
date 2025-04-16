@@ -9,6 +9,8 @@ namespace CrossyRoad.New
 
         [SerializeField] private float _cellSize = 1f;
 
+        [SerializeField] private GridLevelManager _levelManager;
+
         public int Width => _width;
 
 

@@ -17,6 +17,7 @@ namespace CrossyRoad.New
         private Queue<GameObject> _activeRows = new();
         private int _currentRowY = 0;
 
+
         public void InitGrid()
         {
             for (int y = 0; y < _initialRows; y++)
@@ -66,6 +67,8 @@ namespace CrossyRoad.New
 
         private void TrySpawnObstacle(int rowY, GameObject parentRow)
         {
+            if (rowY == 0) return;
+
             if (Random.value > 0.5f) return;
 
             int randomX = Random.Range(-(_gridManager.Width / 2), (_gridManager.Width / 2) + 1);
