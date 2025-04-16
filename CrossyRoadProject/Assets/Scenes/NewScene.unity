@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 311866218}
   - component: {fileID: 311866217}
   - component: {fileID: 311866220}
+  - component: {fileID: 311866221}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -318,6 +319,21 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &311866221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311866216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7f0164f7a3b034fbfc164807f7355c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 1349533585}
+  _offset: {x: 0, y: 10, z: -10}
+  _followSpeed: 5
 --- !u!1001 &405626956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -798,6 +814,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridManager: {fileID: 963647687}
   _rowPrefab: {fileID: 1528493530}
+  _logLanePrefab: {fileID: 444088484523585850, guid: 205644a650588534d95a6cdbe2ef0ea4, type: 3}
+  _logSpawnChance: 0.2
   _initialRows: 6
   _rowParent: {fileID: 0}
   _obstaclePrefab: {fileID: 1212395927344241342, guid: f4f3e6c7b648a9641b0fd618f118d356, type: 3}
@@ -891,6 +909,7 @@ GameObject:
   - component: {fileID: 1349533583}
   - component: {fileID: 1349533582}
   - component: {fileID: 1349533581}
+  - component: {fileID: 1349533586}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1002,6 +1021,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1349533586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349533580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a175f62c7c73914d82038b7a6e6c28b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _logData: {fileID: 11400000, guid: 6fd82ca2b330d684bbebafcd68305dce, type: 2}
 --- !u!1001 &1427962181
 PrefabInstance:
   m_ObjectHideFlags: 0
