@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using CrossyRoad.Old;
+using System;
 
 namespace CrossyRoad.New
 {
@@ -10,12 +11,13 @@ namespace CrossyRoad.New
 		[SerializeField] private float _moveCooldown = 0.15f;
 
 		[SerializeField] private GridManager _gridManager = null;
-		[SerializeField] private GridLevelManager _levelManager; 
 
 		private bool _isMoving = false;
 		private InputSystem_Actions _actions;
 
-		private int _currentGridRow = 0; 
+		private int _currentGridRow = 0;
+
+		public event Action<int> PlayerChangedRow;
 
 		private void Awake()
 		{
@@ -26,7 +28,6 @@ namespace CrossyRoad.New
 		{
 			Vector2Int startGrid = Vector2Int.zero;
 			transform.position = _gridManager.GridToWorldPosition(startGrid).ToVector3FromXY(1f);
-			_levelManager.InitGrid();
 		}
 
 		private void OnEnable()
@@ -67,7 +68,7 @@ namespace CrossyRoad.New
 			if (direction == Vector2.right && _gridManager.IsOnRightBorder(gridTargetPosition))
 				return;
 			
-			if (direction == Vector2.down && _gridManager.IsOnFirstLine(gridTargetPosition))
+			if (direction == Vector2.down && _gridManager.IsOnFirstRow(gridTargetPosition))
 				return;
 
 			Vector3 worldTargetPosition = _gridManager.GridToWorldPosition(gridTargetPosition).ToVector3FromXY(1f);
@@ -92,7 +93,8 @@ namespace CrossyRoad.New
 			_isMoving = false;
 
 			Vector2Int currentGrid = _gridManager.EvaluateWorldToGridPosition(transform.position.ToVector2FromXZ());
-			_levelManager.TryAdvanceRow(currentGrid.y);
+
+			PlayerChangedRow?.Invoke(currentGrid.y);
 		}
 	}
 }

@@ -61,14 +61,14 @@ namespace CrossyRoad.New
 			return IsOnRightBorder(EvaluateWorldToGridPosition(worldPosition));
 		}
 
-        public bool IsOnFirstLine(Vector2Int gridPosition)
+        public bool IsOnFirstRow(Vector2Int gridPosition)
         {
             return gridPosition.y <= 0;
         }
 
-        public bool IsOnFirstLine(Vector2 worldPosition)
+        public bool IsOnFirstRow(Vector2 worldPosition)
         {
-            return IsOnFirstLine(EvaluateWorldToGridPosition(worldPosition));
+            return IsOnFirstRow(EvaluateWorldToGridPosition(worldPosition));
         }
     }
 }
