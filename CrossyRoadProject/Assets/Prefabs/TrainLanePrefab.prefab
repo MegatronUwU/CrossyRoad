@@ -2093,7 +2093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc22972aa839c134380890cdf38b4787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _trainPrefab: {fileID: 4163387878412016100, guid: 4f1d6e349157b2144becbbdfe6df755b, type: 3}
+  _trainPrefab: {fileID: 3348935358569060864, guid: 4f1d6e349157b2144becbbdfe6df755b, type: 3}
   _spawnPoint: {fileID: 8581278507048891521}
   _delayBeforeTrain: 1.5
 --- !u!1 &8374575495252364880

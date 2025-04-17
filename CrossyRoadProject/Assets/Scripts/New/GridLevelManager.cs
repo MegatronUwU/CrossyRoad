@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using CrossyRoad.Old;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 namespace CrossyRoad.New
 {
@@ -19,6 +19,8 @@ namespace CrossyRoad.New
 		[SerializeField] private float _trainLaneChance = 0.1f;
 		[SerializeField] private GridCoinSpawner _coinSpawner;
 
+		[SerializeField] private SpawnableObstacle[] _spawnableObstacles;
+
 		private Queue<GameObject> _activeRows = new();
 		private int _currentRowY = 0;
 
@@ -31,7 +33,7 @@ namespace CrossyRoad.New
 
 		public void InitGrid()
 		{
-			for(int y = -_rowsCountBehindPlayer; y < 0; y++)
+			for (int y = -_rowsCountBehindPlayer; y < 0; y++)
 				SpawnRow(y);
 
 			for (int y = 0; y < _rowsCountAheadOfPlayer + 1; y++)
@@ -68,55 +70,93 @@ namespace CrossyRoad.New
 			{
 				row = Instantiate(_logLanePrefab, pos, Quaternion.identity, _rowParent);
 			}
+			else if(Random.value < _trainLaneChance)
+			{ 
+				row = Instantiate(_trainLanePrefab, pos, Quaternion.identity, _rowParent);
+			}
 			else
 			{
 				row = Instantiate(_rowPrefab, pos, Quaternion.identity, _rowParent);
-				TrySpawnObstacle(y, row);
+				TrySpawnCar(y, row);
+			}
+			
+			_activeRows.Enqueue(row);
+
+			_coinSpawner.SpawnCoinsOnRow(y, row.transform);
+		}
+
+		//new
+		private void SpawnNextRowContent(int rowY)
+		{
+			Vector3 pos = _gridManager.GridToWorldPosition(new Vector2Int(0, rowY)).ToVector3FromXY(0f);
+
+			GameObject row = null;
+
+			if (rowY < 4)
+			{
+				row = Instantiate(_rowPrefab, pos, Quaternion.identity, _rowParent);
+				_activeRows.Enqueue(row);
+				return;
 			}
 
-			if (Random.value < _trainLaneChance)
+			float totalWeight = 0;
+			foreach(SpawnableObstacle obstacle in _spawnableObstacles)
+				totalWeight += obstacle.Weight;
+
+			float random = Random.Range(0f, totalWeight);
+			float currentWeight = 0f;
+
+			for (int i = 0; i < _spawnableObstacles.Length; i++)
 			{
-				row = Instantiate(_trainLanePrefab, pos, Quaternion.identity, _rowParent);
+				currentWeight += _spawnableObstacles[i].Weight;
+
+				if(currentWeight >= random)
+				{
+					//=> on spawn cet élément
+					//=> spawn les éléments additionels et incrémenter le _currentRow
+				}
 			}
 
 			_activeRows.Enqueue(row);
 
-			_coinSpawner.SpawnCoinsOnRow(y);
+			if(rowY % 5 == 0)
+				_coinSpawner.SpawnCoinsOnRow(rowY, row.transform);
 		}
 
-		// Deuxième version de SpawnRow en essayant d'éviter if/else, en utilisant une liste de règles pour choisir le type de ligne à générer
-		// private void SpawnRow(int y)
-		// {
-		//     Vector3 pos = _gridManager.GridToWorldPosition(new Vector2Int(0, y)).ToVector3FromXY(0f);
+		//// Deuxième version de SpawnRow en essayant d'éviter if/else, en utilisant une liste de règles pour choisir le type de ligne à générer
+		//private void SpawnRowVariant(int y)
+		//{
+		//	Vector3 pos = _gridManager.GridToWorldPosition(new Vector2Int(0, y)).ToVector3FromXY(0f);
 
-		//     GameObject prefabToSpawn = GetRowPrefab(y);
-		//     GameObject row = Instantiate(prefabToSpawn, pos, Quaternion.identity, _rowParent);
+		//	GameObject prefabToSpawn = GetRowPrefab(y);
+		//	GameObject row = Instantiate(prefabToSpawn, pos, Quaternion.identity, _rowParent);
 
-		//     if (prefabToSpawn == _rowPrefab)
-		//         TrySpawnObstacle(y, row);
+		//	if (prefabToSpawn == _rowPrefab)
+		//		TrySpawnCar(y, row);
 
-		//     _activeRows.Enqueue(row);
-		// }
+		//	_activeRows.Enqueue(row);
+		//}
 
-		// La méthode de sélection du prefab 
-		// private GameObject GetRowPrefab(int y)
-		// 
-		//     List<(System.Func<int, bool> condition, GameObject prefab)> rules = new()
-		//     {
-		//         (i => i < 4, _rowPrefab),
-		//         (i => Random.value < _logSpawnChance, _logLanePrefab),
+		////La méthode de sélection du prefab
+		//private GameObject GetRowPrefab(int y)
+		//{
+		//	List<(System.Func<int, bool> condition, GameObject prefab)> rules = new()
+		//	 {
+		//		 (i => i < 4, _rowPrefab),
+		//		 (i => Random.value < _logSpawnChance, _logLanePrefab),
 		//         // Tu peux ajouter ici d'autres types (ex : train lane plus tard)
 		//         (_ => true, _rowPrefab), // fallback
 		//     };
 
-		//     foreach (var (condition, prefab) in rules)
-		//     {
-		//         if (condition(y))
-		//             return prefab;
-		//     }
+		//	foreach (var (condition, prefab) in rules)
+		//	{
+		//		if (condition(y))
+		//			return prefab;
+		//	}
 
-		//     return _rowPrefab; // sécurité
-		// }
+		//	return _rowPrefab; // sécurité
+		//}
+
 		private void RemoveOldestRow()
 		{
 			if (_activeRows.Count <= 0)
@@ -126,15 +166,17 @@ namespace CrossyRoad.New
 			Destroy(oldest);
 		}
 
-		private void TrySpawnObstacle(int rowY, GameObject parentRow)
+		private bool TrySpawnCar(int rowY, GameObject parentRow)
 		{
-			if (Random.value > 0.5f) return;
+			if (Random.value > 0.5f) return false;
 
 			int randomX = Random.Range(-(_gridManager.Width / 2), (_gridManager.Width / 2) + 1);
 			Vector2Int gridPos = new Vector2Int(randomX, rowY);
 			Vector3 worldPos = _gridManager.GridToWorldPosition(gridPos).ToVector3FromXY(0.5f);
 
 			Instantiate(_obstaclePrefab, worldPos, Quaternion.identity, parentRow.transform);
+
+			return true;
 		}
 	}
 }

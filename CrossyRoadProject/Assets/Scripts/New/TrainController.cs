@@ -15,7 +15,7 @@ namespace CrossyRoad.New
 
         private void Update()
         {
-            transform.Translate(Vector3.right * _speed * Time.deltaTime);
+            transform.Translate(_speed * Time.deltaTime * Vector3.forward);
         }
 
         private void OnTriggerEnter(Collider other)

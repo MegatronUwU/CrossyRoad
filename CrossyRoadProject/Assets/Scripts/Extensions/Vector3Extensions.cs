@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CrossyRoad.Old
+namespace CrossyRoad
 {
 	public static class Vector3Extensions
 	{

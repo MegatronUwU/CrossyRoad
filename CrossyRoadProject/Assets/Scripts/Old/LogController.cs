@@ -2,15 +2,13 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace CrossyRoad.Old
+namespace CrossyRoad.New
 {
 	public class LogController : MonoBehaviour
 	{
 		[SerializeField] private LogData _logData = null;
 		public float MinX = -10f;
 		public float MaxX = 10f;
-
-		[SerializeField] public PlayerCollisionHandler _playerHandler;
 
 		private void Start()
 		{

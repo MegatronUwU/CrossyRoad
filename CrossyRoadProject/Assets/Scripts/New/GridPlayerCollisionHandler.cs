@@ -25,7 +25,10 @@ namespace CrossyRoad.New
 		private void OnTriggerEnter(Collider other)
 		{
 			if (other.CompareTag("Water"))
+			{
 				_connectedWaterCount++;
+				return;
+			}
 
 			if (other.CompareTag("Log"))
 				_connectedLogCount++;
@@ -44,6 +47,9 @@ namespace CrossyRoad.New
 		{
 			if (collision.gameObject.CompareTag("Obstacle"))
 			{
+				if (GameManager.Instance == null)
+					return;
+
 				GameManager.Instance.ShowGameOverUI();
 			}
 		}

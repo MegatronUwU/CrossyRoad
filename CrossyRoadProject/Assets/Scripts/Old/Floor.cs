@@ -22,7 +22,7 @@ namespace CrossyRoad.Old
 				Vector3 spawnPos = _obstacleSpawnPoints[i].position + Vector3.up * .25f;
 				_generatedObstacles[i] = Instantiate(_obstaclePrefabs[Random.Range(0, _obstaclePrefabs.Length)], spawnPos, Quaternion.identity, transform);
 
-				if (_generatedObstacles[i].GetComponentInChildren<LogController>() != null)
+				if (_generatedObstacles[i].GetComponentInChildren<CrossyRoad.New.LogController>() != null)
 				{
 					_generatedObstacles[i] = Instantiate(_logPrefab, spawnPos.AddZ(1.5f), Quaternion.identity, transform);
 					_generatedObstacles[i] = Instantiate(_logPrefab, spawnPos.AddZ(3f), Quaternion.identity, transform);

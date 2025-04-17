@@ -15,7 +15,7 @@ namespace CrossyRoad.New
 
         private void SpawnTrain()
         {
-            Instantiate(_trainPrefab, _spawnPoint.position, _spawnPoint.rotation);
+            Instantiate(_trainPrefab, _spawnPoint.position, Quaternion.identity, transform);
         }
     }
 }
