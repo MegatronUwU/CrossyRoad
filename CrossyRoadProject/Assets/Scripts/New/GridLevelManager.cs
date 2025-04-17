@@ -17,6 +17,7 @@ namespace CrossyRoad.New
 		[SerializeField] private GameObject _obstaclePrefab;
 		[SerializeField] private GameObject _trainLanePrefab;
 		[SerializeField] private float _trainLaneChance = 0.1f;
+		[SerializeField] private GridCoinSpawner _coinSpawner;
 
 		private Queue<GameObject> _activeRows = new();
 		private int _currentRowY = 0;
@@ -79,6 +80,8 @@ namespace CrossyRoad.New
 			}
 
 			_activeRows.Enqueue(row);
+
+			_coinSpawner.SpawnCoinsOnRow(y);
 		}
 
 		// Deuxième version de SpawnRow en essayant d'éviter if/else, en utilisant une liste de règles pour choisir le type de ligne à générer
