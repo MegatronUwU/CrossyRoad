@@ -5,7 +5,7 @@ namespace CrossyRoad.New
 	public class GridCameraMovement : MonoBehaviour
 	{
 		[SerializeField] private Transform _target;
-		[SerializeField] private Vector3 _offset = new Vector3(0, 10, -10);
+		[SerializeField] private Vector3 _offset = new Vector3(0, 18, -15);
 		[SerializeField] private float _followSpeed = 5f;
 
 		private void LateUpdate()
