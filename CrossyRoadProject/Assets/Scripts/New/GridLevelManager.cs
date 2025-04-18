@@ -100,7 +100,7 @@ namespace CrossyRoad.New
 			}
 
 			float totalWeight = 0;
-			foreach(SpawnableObstacle obstacle in _spawnableObstacles)
+			foreach (SpawnableObstacle obstacle in _spawnableObstacles)
 				totalWeight += obstacle.Weight;
 
 			float random = Random.Range(0f, totalWeight);
@@ -110,18 +110,43 @@ namespace CrossyRoad.New
 			{
 				currentWeight += _spawnableObstacles[i].Weight;
 
-				if(currentWeight >= random)
+				if (currentWeight >= random)
 				{
-					//=> on spawn cet élément
-					//=> spawn les éléments additionels et incrémenter le _currentRow
+					SpawnableObstacle selected = _spawnableObstacles[i];
+
+					row = Instantiate(_rowPrefab, pos, Quaternion.identity, _rowParent);
+
+					Instantiate(selected.ObstaclePrefab, row.transform.position + Vector3.up * 0.5f, Quaternion.identity, row.transform);
+
+					// Obstacles additionnels 
+					if (selected.AdditionalObstaclePrefab != null && selected.AassitionalObstaclesMaxQuantity > 0)
+					{
+						int quantity = Random.Range(selected.AssitionalObstaclesMinQuantity, selected.AassitionalObstaclesMaxQuantity + 1);
+						for (int j = 0; j < quantity; j++)
+						{
+							int randomX = Random.Range(-(_gridManager.Width / 2), (_gridManager.Width / 2) + 1);
+							Vector2Int gridPos = new Vector2Int(randomX, rowY);
+							Vector3 worldPos = _gridManager.GridToWorldPosition(gridPos).ToVector3FromXY(0.5f);
+
+							Instantiate(selected.AdditionalObstaclePrefab, worldPos, Quaternion.identity, row.transform);
+						}
+					}
+
+					break;
 				}
+			}
+
+			if (row == null)
+			{
+				row = Instantiate(_rowPrefab, pos, Quaternion.identity, _rowParent);
 			}
 
 			_activeRows.Enqueue(row);
 
-			if(rowY % 5 == 0)
+			if (rowY % 5 == 0)
 				_coinSpawner.SpawnCoinsOnRow(rowY, row.transform);
 		}
+
 
 		//// Deuxième version de SpawnRow en essayant d'éviter if/else, en utilisant une liste de règles pour choisir le type de ligne à générer
 		//private void SpawnRowVariant(int y)
