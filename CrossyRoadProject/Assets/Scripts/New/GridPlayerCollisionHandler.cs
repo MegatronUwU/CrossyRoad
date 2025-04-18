@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using CrossyRoad.Old;
 
 namespace CrossyRoad.New
 {

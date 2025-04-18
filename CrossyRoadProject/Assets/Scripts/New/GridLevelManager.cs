@@ -34,23 +34,26 @@ namespace CrossyRoad.New
 		public void InitGrid()
 		{
 			for (int y = -_rowsCountBehindPlayer; y < 0; y++)
-				SpawnRow(y);
+				//SpawnRow(y);
+				SpawnNextRowContent(y);
 
 			for (int y = 0; y < _rowsCountAheadOfPlayer + 1; y++)
-				SpawnRow(y);
+				//SpawnRow(y);
+				SpawnNextRowContent(y);
 
 			_currentRowY = _rowsCountAheadOfPlayer;
 		}
 
 		private void OnPlayerChangedRow(int newY)
 		{
-			if (newY + _rowsCountAheadOfPlayer <= _currentRowY)
-				return;
-
-			_currentRowY++;
-			SpawnRow(_currentRowY);
-			RemoveOldestRow();
-		}
+			while (newY + _rowsCountAheadOfPlayer > _currentRowY)
+			{
+				_currentRowY++;
+				//SpawnRow(_currentRowY);
+				SpawnNextRowContent(_currentRowY);
+				RemoveOldestRow();
+			}
+	}
 
 		private void SpawnRow(int y)
 		{

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LogLaneObstacle
   m_EditorClassIdentifier: 
   ObstaclePrefab: {fileID: 444088484523585850, guid: 205644a650588534d95a6cdbe2ef0ea4, type: 3}
-  Weight: 1
+  Weight: 3
   AssitionalObstaclesMinQuantity: 1
   AassitionalObstaclesMaxQuantity: 3
   AdditionalObstaclePrefab: {fileID: 444088484523585850, guid: 205644a650588534d95a6cdbe2ef0ea4, type: 3}

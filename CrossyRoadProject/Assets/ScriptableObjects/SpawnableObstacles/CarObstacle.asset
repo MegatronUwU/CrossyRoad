@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CarObstacle
   m_EditorClassIdentifier: 
   ObstaclePrefab: {fileID: 1212395927344241342, guid: f4f3e6c7b648a9641b0fd618f118d356, type: 3}
-  Weight: 1
+  Weight: 5
   AssitionalObstaclesMinQuantity: 0
   AassitionalObstaclesMaxQuantity: 3
   AdditionalObstaclePrefab: {fileID: 1212395927344241342, guid: f4f3e6c7b648a9641b0fd618f118d356, type: 3}
