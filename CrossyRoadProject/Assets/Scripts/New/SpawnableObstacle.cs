@@ -9,8 +9,8 @@ namespace CrossyRoad.New
 		public GameObject ObstaclePrefab = null;
 		public float Weight = 1;
 		[Space]
-		public int AssitionalObstaclesMinQuantity = 0;
-		public int AassitionalObstaclesMaxQuantity = 0;
+		public int AdditionalObstaclesMinQuantity = 0;
+		public int AdditionalObstaclesMaxQuantity = 0;
 		public GameObject AdditionalObstaclePrefab = null;
 	}
 }

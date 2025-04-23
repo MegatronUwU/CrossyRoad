@@ -13,8 +13,16 @@ namespace CrossyRoad.New
 		private int _connectedWaterCount = 0;
 		public bool IsOnWater => _connectedWaterCount > 0;
 
+		private bool _isAlive = true;
+
 		private void Update()
 		{
+			if (!IsOnLog && IsOnWater)
+			{
+				KillPlayer();
+				return;
+			}
+
 			if (!IsOnLog)
 				return;
 
@@ -30,7 +38,15 @@ namespace CrossyRoad.New
 			}
 
 			if (other.CompareTag("Log"))
+			{
 				_connectedLogCount++;
+				return;
+			}
+
+			if (other.gameObject.CompareTag("Obstacle"))
+			{
+				KillPlayer();
+			}
 		}
 
 		private void OnTriggerExit(Collider other)
@@ -42,15 +58,19 @@ namespace CrossyRoad.New
 				_connectedLogCount--;
 		}
 
-		private void OnCollisionEnter(Collision collision)
+		private void KillPlayer()
 		{
-			if (collision.gameObject.CompareTag("Obstacle"))
-			{
-				if (GameManager.Instance == null)
-					return;
+			if (!_isAlive)
+				return;
 
-				GameManager.Instance.ShowGameOverUI();
-			}
+			Debug.LogError("Defeat");
+
+			_isAlive = false;
+
+			if (GameManager.Instance == null)
+				return;
+
+			GameManager.Instance.ShowGameOverUI();
 		}
 	}
 }

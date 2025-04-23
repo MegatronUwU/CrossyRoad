@@ -97,7 +97,7 @@ namespace CrossyRoad.New
 
 			if (rowY < 4)
 			{
-				row = Instantiate(_rowPrefab, pos, Quaternion.identity, _rowParent);
+				row = Instantiate(_rowPrefab, pos.SetY(-.5f), Quaternion.identity, _rowParent);
 				_activeRows.Enqueue(row);
 				return;
 			}
@@ -117,21 +117,25 @@ namespace CrossyRoad.New
 				{
 					SpawnableObstacle selected = _spawnableObstacles[i];
 
-					row = Instantiate(_rowPrefab, pos, Quaternion.identity, _rowParent);
+					//row = Instantiate(_rowPrefab, pos, Quaternion.identity, _rowParent);
 
-					Instantiate(selected.ObstaclePrefab, row.transform.position + Vector3.up * 0.5f, Quaternion.identity, row.transform);
+					row = Instantiate(selected.ObstaclePrefab, pos, Quaternion.identity, _rowParent);
+					_activeRows.Enqueue(row);
 
 					// Obstacles additionnels 
-					if (selected.AdditionalObstaclePrefab != null && selected.AassitionalObstaclesMaxQuantity > 0)
+					if (selected.AdditionalObstaclePrefab != null && selected.AdditionalObstaclesMaxQuantity > 0)
 					{
-						int quantity = Random.Range(selected.AssitionalObstaclesMinQuantity, selected.AassitionalObstaclesMaxQuantity + 1);
+						int quantity = Random.Range(selected.AdditionalObstaclesMinQuantity, selected.AdditionalObstaclesMaxQuantity + 1);
 						for (int j = 0; j < quantity; j++)
 						{
-							int randomX = Random.Range(-(_gridManager.Width / 2), (_gridManager.Width / 2) + 1);
-							Vector2Int gridPos = new Vector2Int(randomX, rowY);
-							Vector3 worldPos = _gridManager.GridToWorldPosition(gridPos).ToVector3FromXY(0.5f);
+							//int randomX = Random.Range(-(_gridManager.Width / 2), (_gridManager.Width / 2) + 1);
+							_currentRowY++;
 
-							Instantiate(selected.AdditionalObstaclePrefab, worldPos, Quaternion.identity, row.transform);
+							Vector2Int gridPos = new Vector2Int(0, rowY + j + 1);
+							Vector3 worldPos = _gridManager.GridToWorldPosition(gridPos).ToVector3FromXY(0f);
+
+							GameObject newObstacle = Instantiate(selected.AdditionalObstaclePrefab, worldPos, Quaternion.identity, _rowParent);
+							_activeRows.Enqueue(newObstacle);
 						}
 					}
 
@@ -140,11 +144,7 @@ namespace CrossyRoad.New
 			}
 
 			if (row == null)
-			{
 				row = Instantiate(_rowPrefab, pos, Quaternion.identity, _rowParent);
-			}
-
-			_activeRows.Enqueue(row);
 
 			if (rowY % 5 == 0)
 				_coinSpawner.SpawnCoinsOnRow(rowY, row.transform);
@@ -200,7 +200,7 @@ namespace CrossyRoad.New
 
 			int randomX = Random.Range(-(_gridManager.Width / 2), (_gridManager.Width / 2) + 1);
 			Vector2Int gridPos = new Vector2Int(randomX, rowY);
-			Vector3 worldPos = _gridManager.GridToWorldPosition(gridPos).ToVector3FromXY(0.5f);
+			Vector3 worldPos = _gridManager.GridToWorldPosition(gridPos).ToVector3FromXY(0f);
 
 			Instantiate(_obstaclePrefab, worldPos, Quaternion.identity, parentRow.transform);
 

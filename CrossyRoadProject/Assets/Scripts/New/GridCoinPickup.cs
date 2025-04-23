@@ -9,7 +9,6 @@ namespace CrossyRoad.New
             if (other.CompareTag("Player"))
             {
                 // Todo Ajouter au score 
-                Debug.Log("Coin récupérée");
                 Destroy(gameObject);
             }
         }

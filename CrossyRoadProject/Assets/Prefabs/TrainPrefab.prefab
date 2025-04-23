@@ -99,10 +99,9 @@ GameObject:
   - component: {fileID: 738202115296610344}
   - component: {fileID: 655820558509367276}
   - component: {fileID: 4354515299717456949}
-  - component: {fileID: 5655490972374714127}
   m_Layer: 0
   m_Name: Renderer
-  m_TagString: Train
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,8 +197,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.35, y: 1.4116962, z: 2.6}
-  m_Center: {x: 0.087500036, y: 0.8653475, z: 0}
+  m_Size: {x: 1.35, y: 1.4116962, z: 7.509161}
+  m_Center: {x: 0.087500036, y: 0.8653475, z: -2.4545813}
 --- !u!114 &4354515299717456949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,35 +211,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdc2d05f88f6a0c4e8a2473c1a286fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 15
-  _lifeTime: 5
---- !u!54 &5655490972374714127
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 905957125163581884}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  _speed: 22
+  _lifeTime: 10
+  _minimumTimeBeforeMoving: 1
+  _maximumTimeBeforeMoving: 4
 --- !u!1 &1667265756760680160
 GameObject:
   m_ObjectHideFlags: 0

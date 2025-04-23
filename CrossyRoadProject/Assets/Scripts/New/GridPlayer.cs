@@ -71,7 +71,7 @@ namespace CrossyRoad.New
 			if (direction == Vector2.down && _gridManager.IsOnFirstRow(gridTargetPosition))
 				return;
 
-			Vector3 worldTargetPosition = _gridManager.GridToWorldPosition(gridTargetPosition).ToVector3FromXY(1f);
+			Vector3 worldTargetPosition = _gridManager.GridToWorldPosition(gridTargetPosition).ToVector3FromXY(.5f);
 			StartCoroutine(MoveToPosition(worldTargetPosition));
 		}
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TrainObstacle
   m_EditorClassIdentifier: 
   ObstaclePrefab: {fileID: 8252932892417308256, guid: 05ddcf4a33742e54a81153c52519a07c, type: 3}
-  Weight: 1
-  AssitionalObstaclesMinQuantity: 0
-  AassitionalObstaclesMaxQuantity: 0
+  Weight: 0.8
+  AdditionalObstaclesMinQuantity: 0
+  AdditionalObstaclesMaxQuantity: 0
   AdditionalObstaclePrefab: {fileID: 0}
